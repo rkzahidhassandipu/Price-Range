@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Range</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h2>Price Range</h2>
+            <p>Use slider or enter min and max price</p>
+        </header>
+        <div class="price-in">
+            <div class="field">
+                <span>Min</span>
+                <input type="number" class="in-max" value="500">
+            </div>
+            <!-- <span class="separator">-</span> -->
+            <div class="field">
+                <span>Max</span>
+                <input type="number" class="in-min" value="10500">
+            </div>
+        </div>
+        <div class="slider">
+            <div class="pro"></div>
+        </div>
+        <div class="range-in">
+            <input type="range" class="range-min" min="0" max="15000" value="500">
+            <input type="range" class="range-max" min="0" max="15000" value="15000">
+        </div>
+    </div>
+
+    <script>
+        const rangein = document.querySelectorAll(".range-in input");
+
+        const pricein = document.querySelectorAll(".price-in input");
+
+        const progress = document.querySelector('.slider .pro');
+        let priceGap = 1000;
+
+        // pricein.forEach(input =>{
+        //     input.addEventListener("input", e =>{
+        //         let minVal = parseInt(pricein[0].value),
+        //         maxVal = parseInt(pricein[1].value);
+
+        //        if(maxVal - minVal < priceGap){
+        //            if(e.target.className === "in-min"){
+        //                 rangein[0].value = minVal;
+        //                 progress.style.left = (minVal / rangein[0].max) * 100 + "%";
+        //            }else{
+        //                 rangein[1].value = maxVal;
+        //                 progress.style.right = 100 - (maxVal / rangein[1].max) * 100 + "%";
+        //            }
+        //        }
+        //     });
+        // });
+
+
+
+
+
+        rangein.forEach(input =>{
+            input.addEventListener("input", e =>{
+                let minVal = parseInt(rangein[0].value),
+                maxVal = parseInt(rangein[1].value);
+
+               if(maxVal - minVal < priceGap){
+                   if(e.target.className === "range-min"){
+                        rangein[0].value = maxVal - priceGap;
+                   }else{
+                        rangein[1].value = minVal + priceGap;
+                   }
+               } else{
+                    pricein[0].value = minVal;
+                    pricein[1].value = maxVal;
+                    progress.style.left = (minVal / rangein[0].max) * 100 + "%";
+                    progress.style.right = 100 - (maxVal / rangein[1].max) * 100 + "%";
+               }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
